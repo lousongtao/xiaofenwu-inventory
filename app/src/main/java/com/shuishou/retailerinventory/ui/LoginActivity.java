@@ -13,6 +13,7 @@ import com.shuishou.retailerinventory.bean.UserData;
 import com.shuishou.retailerinventory.http.HttpOperator;
 import com.shuishou.retailerinventory.io.IOOperator;
 import com.shuishou.retailerinventory.R;
+import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin.setOnClickListener(this);
 
         NoHttp.initialize(this);
+        Logger.setDebug(true);
+        Logger.setTag("goods:nohttp");
     }
 
     private void doLogin(){

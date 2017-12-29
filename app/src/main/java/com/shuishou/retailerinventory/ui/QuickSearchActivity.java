@@ -1,6 +1,7 @@
 package com.shuishou.retailerinventory.ui;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,11 +24,19 @@ import java.util.ArrayList;
 
 public class QuickSearchActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String INTENTDATA_GOODS = "GOODS";
+    public static final String INTENTDATA_ACTION = "ACTION";
+    public static final int INTENTDATA_ACTION_CHANGE = 1;
+    public static final int INTENTDATA_ACTION_IMPORT = 2;
     private EditText txtSearchCode;
 //    private ArrayList<View> resultCellList = new ArrayList<>(8);
     private View searchResultCell;
-    private Button btnImport;
-    private Button btnChange;
+    private ImageButton btnChange;
+    private ImageButton btnImport;
+    private TextView txtGoodsName;
+    private TextView txtLeftAmount;
+    private TextView txtPurchasePrice;
+    private TextView txtSellPrice;
+    private TextView txtMemberPrice;
     private AlertDialog dlg;
 
     private QuickSearchActivity.ChooseGoodsListener listener = new QuickSearchActivity.ChooseGoodsListener();
@@ -39,10 +49,16 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
         category1s = (ArrayList<Category1>) getIntent().getExtras().getSerializable(MainActivity.INTENTEXTRA_CATEGORYLIST);
         txtSearchCode = (EditText) findViewById(R.id.txtSearchCode);
         searchResultCell = findViewById(R.id.quicksearchresultcell);
-        btnChange = searchResultCell.findViewById(R.id.btn_change);
-        btnImport = searchResultCell.findViewById(R.id.btn_import);
-        btnChange.setOnClickListener(this);
+        btnChange = (ImageButton) searchResultCell.findViewById(R.id.btn_change);
+        btnImport = (ImageButton) searchResultCell.findViewById(R.id.btn_import);
+        txtGoodsName = (TextView) searchResultCell.findViewById(R.id.txtGoodsName);
+        txtLeftAmount = (TextView) searchResultCell.findViewById(R.id.txtLeftAmount);
+        txtPurchasePrice = (TextView) searchResultCell.findViewById(R.id.txtPurchasePrice);
+        txtSellPrice = (TextView) searchResultCell.findViewById(R.id.txtSellPrice);
+        txtMemberPrice = (TextView) searchResultCell.findViewById(R.id.txtMemberPrice);
 
+        btnChange.setOnClickListener(this);
+        btnImport.setOnClickListener(this);
 
         txtSearchCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -74,29 +90,19 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
     }
     private void refreshResult(){
         String code = txtSearchCode.getText().toString();
-        Goods findResult = findGoods(code);
+        Goods findGoods = findGoods(code);
 
-        if (findResult == null) {
+        if (findGoods == null) {
             Toast.makeText(this, "cannot find result", Toast.LENGTH_LONG).show();
             return;
         }
-        for(int i = 0; i< results.size(); i++){
-            Goods g= results.get(i);
-            View v = resultCellList.get(i);
-            v.setVisibility(View.VISIBLE);
-            Button btn = (Button)v.findViewById(R.id.btn_change);
-            btn.setTag(g);
-            btn.setOnClickListener(listener);
-            TextView txtName = (TextView)v.findViewById(R.id.txt_goodsname);
-            TextView txtLeftAmouont = (TextView)v.findViewById(R.id.txt_leftamount);
-            TextView txtUnit = (TextView)v.findViewById(R.id.txt_unit);
-            txtName.setText(g.getName());
-            txtLeftAmouont.setText(String.valueOf(g.getLeftAmount()));
-//            TextView tvName = (TextView)v.findViewById(R.id.txtName);
-//            ImageButton chooseButton = (ImageButton) v.findViewById(R.id.chooseBtn);
-//            chooseButton.setTag(m);
-//            tvName.setText(m.getName());
-        }
+        btnChange.setTag(findGoods);
+        btnImport.setTag(findGoods);
+        txtGoodsName.setText(findGoods.getName());
+        txtLeftAmount.setText(String.valueOf(findGoods.getLeftAmount()));
+        txtPurchasePrice.setText(String.valueOf(findGoods.getBuyPrice()));
+        txtSellPrice.setText(String.valueOf(findGoods.getSellPrice()));
+        txtMemberPrice.setText(String.valueOf(findGoods.getMemberPrice()));
     }
 
     @Override
@@ -109,9 +115,19 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v == btnChange){
-
+            Goods g = (Goods)v.getTag();
+            Intent intent = new Intent();
+            intent.putExtra(INTENTDATA_GOODS, g);
+            intent.putExtra(INTENTDATA_ACTION, INTENTDATA_ACTION_CHANGE);
+            setResult(RESULT_OK, intent);
+            finish();
         } else if (v == btnImport){
-
+            Goods g = (Goods)v.getTag();
+            Intent intent = new Intent();
+            intent.putExtra(INTENTDATA_GOODS, g);
+            intent.putExtra(INTENTDATA_ACTION, INTENTDATA_ACTION_IMPORT);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 

@@ -22,11 +22,13 @@
             android:inputType="textPersonName"
             android:textSize="18sp" />
 
-        <include
-            android:id="@+id/quicksearchresultcell"
-            layout="@layout/goods_listitem_layout"
-            android:visibility="invisible" />
     </LinearLayout>
 
+
+    <include
+        android:id="@+id/quicksearchresultcell"
+        layout="@layout/goods_listitem_layout"
+
+        android:visibility="visible" />
 
 </LinearLayout>

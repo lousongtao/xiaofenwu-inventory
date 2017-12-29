@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.shuishou.retailerinventory.io.IOOperator;
 import com.shuishou.retailerinventory.utils.CommonTool;
 import com.shuishou.retailerinventory.R;
 import com.yanzhenjie.nohttp.Logger;
+import com.yanzhenjie.nohttp.NoHttp;
 
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton btnLookfor;
     private ImageButton btnScan;
     private SaveNewAmountDialog saveNewAmountDialog;
+    private ImportAmountDialog importAmountDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnScan = (ImageButton)findViewById(R.id.btnScan);
         TextView tvUploadErrorLog = (TextView)findViewById(R.id.drawermenu_uploaderrorlog);
         TextView tvExit = (TextView)findViewById(R.id.drawermenu_exit);
+        //add dividers between RecyclerView items
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
+//        lvGoods.addItemDecoration(dividerItemDecoration);
 
         tvUploadErrorLog.setTag(TAG_UPLOADERRORLOG);
         tvExit.setTag(TAG_EXITSYSTEM);
@@ -77,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLookfor.setOnClickListener(this);
         btnScan.setOnClickListener(this);
 
+        NoHttp.initialize(this);
         Logger.setDebug(true);
         Logger.setTag("goods:nohttp");
 
@@ -85,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         httpOperator.loadData();
 
         saveNewAmountDialog = new SaveNewAmountDialog(this);
+        importAmountDialog = new ImportAmountDialog(this);
     }
 
     public void initData(ArrayList<Category1> cs){
@@ -132,11 +140,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return saveNewAmountDialog;
     }
 
+    public ImportAmountDialog getImportAmountDialog(){
+        return importAmountDialog;
+    }
+
     public void showGoodsByCategory2(Category2 c2){
         goods.clear();
         if (c2.getGoods() != null)
             goods.addAll(c2.getGoods());
         goodsAdapter.notifyDataSetChanged();
+    }
+
+    public void notifyGoodsPropertyChange(Goods g){
+        for (int i = 0; i< goods.size(); i++){
+            if (goods.get(i).getId() == g.getId()){
+                goodsAdapter.notifyItemChanged(i);
+                return;
+            }
+        }
     }
 
     @Override
@@ -195,7 +216,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case REQUESTCODE_QUICKSEARCH:
                 if (resultCode == RESULT_OK){
                     Goods goods = (Goods)data.getSerializableExtra(QuickSearchActivity.INTENTDATA_GOODS);
-                    saveNewAmountDialog.showDialog(goods);
+                    int action = data.getIntExtra(QuickSearchActivity.INTENTDATA_ACTION, 0);
+                    if (action == QuickSearchActivity.INTENTDATA_ACTION_CHANGE)
+                        saveNewAmountDialog.showDialog(goods);
+                    else if (action == QuickSearchActivity.INTENTDATA_ACTION_IMPORT)
+                        importAmountDialog.showDialog(goods);
+                    else
+                        Toast.makeText(this, "Unrecognized Action!", Toast.LENGTH_LONG).show();
                 } else if (resultCode == RESULT_CANCELED){}
                 break;
             default:
