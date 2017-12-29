@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Inventory</string>
+    <string name="drawmenu_serverurl">SET SERVER URL</string>
+    <string name="drawmenu_refreshdata">REFRESH DATA</string>
+    <string name="drawmenu_uploaderrorlog">UPLOAD ERROR LOG</string>
+    <string name="drawmenu_exit">EXIT</string>
+</resources>
