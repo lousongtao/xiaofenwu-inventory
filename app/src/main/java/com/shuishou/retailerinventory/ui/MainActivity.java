@@ -152,10 +152,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void notifyGoodsPropertyChange(Goods g){
+        boolean isFound = false;//firstly loop the goods list, if find, notify to update UI; if not, loop all the catagories to update the data
         for (int i = 0; i< goods.size(); i++){
             if (goods.get(i).getId() == g.getId()){
+                goods.get(i).setLeftAmount(g.getLeftAmount());
                 goodsAdapter.notifyItemChanged(i);
-                return;
+                isFound = true;
+                break;
+            }
+        }
+        if (!isFound){
+            for(Category1 c1 : category1s){
+                if (c1.getCategory2s() != null){
+                    for (Category2 c2 : c1.getCategory2s()){
+                        if (c2.getGoods() != null){
+                            for (Goods gd : c2.getGoods()){
+                                if (gd.getId() == g.getId()) {
+                                    gd.setLeftAmount(g.getLeftAmount());
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -198,8 +217,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             for (Category2 c2 : c1.getCategory2s()){
                                 if (c2.getGoods() != null){
                                     for (Goods g : c2.getGoods()){
-                                        goods = g;
-                                        break;
+                                        if (g.getBarcode().equals(code)) {
+                                            goods = g;
+                                            break;
+                                        }
                                     }
                                 }
                             }

@@ -77,7 +77,7 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
                         if (c2.getGoods() != null){
                             for(Goods g : c2.getGoods()){
                                 if (g.getBarcode().equals(txt)
-                                        || g.getName().equals(txt)){
+                                        || g.getName().toLowerCase().equals(txt.toLowerCase())){
                                     return g;
                                 }
                             }
@@ -116,6 +116,7 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v == btnChange){
             Goods g = (Goods)v.getTag();
+            if (g == null) return;
             Intent intent = new Intent();
             intent.putExtra(INTENTDATA_GOODS, g);
             intent.putExtra(INTENTDATA_ACTION, INTENTDATA_ACTION_CHANGE);
@@ -123,6 +124,7 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
             finish();
         } else if (v == btnImport){
             Goods g = (Goods)v.getTag();
+            if (g == null) return;
             Intent intent = new Intent();
             intent.putExtra(INTENTDATA_GOODS, g);
             intent.putExtra(INTENTDATA_ACTION, INTENTDATA_ACTION_IMPORT);
