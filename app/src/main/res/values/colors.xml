@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="color_CategoryTabArea">#141414</color>
-    <color name="color_OrangeTheme_CategoryBackgroundArea">#f3efd4</color>
+    <color name="color_OrangeTheme_GoodsBackgroundArea">#f3efd4</color>
     <color name="color_OrangeTheme_ChoosedGoodsBackgroundArea">#f3efd4</color>
     <color name="color_OrangeTheme_ChoosedGoodsFont">#777376</color>
     <color name="color_OrangeTheme_Category1Font">#edbd11</color>

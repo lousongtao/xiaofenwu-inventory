@@ -21,6 +21,8 @@ private int id;
 	
 	private int leftAmount;
 
+	private String description;
+
 	public int getId() {
 		return id;
 	}
@@ -91,6 +93,14 @@ private int id;
 
 	public void setLeftAmount(int leftAmount) {
 		this.leftAmount = leftAmount;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

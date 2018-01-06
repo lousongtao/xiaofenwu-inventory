@@ -27,20 +27,22 @@ public class RecyclerGoodsItemAdapter extends RecyclerView.Adapter<RecyclerGoods
     static class ViewHolder extends RecyclerView.ViewHolder{
         final TextView txtName;
         final TextView txtLeftAmount;
-        final TextView txtPurchasePrice;
+//        final TextView txtPurchasePrice;
         final TextView txtMemberPrice;
         final TextView txtSellPrice;
         final ImageButton btnChange;
         final ImageButton btnImport;
+        final TextView txtDescription;
         public ViewHolder(View view){
             super(view);
             txtName = (TextView) view.findViewById(R.id.txtGoodsName);
             txtLeftAmount = (TextView) view.findViewById(R.id.txtLeftAmount);
-            txtPurchasePrice = (TextView) view.findViewById(R.id.txtPurchasePrice);
+//            txtPurchasePrice = (TextView) view.findViewById(R.id.txtPurchasePrice);
             txtMemberPrice = (TextView) view.findViewById(R.id.txtMemberPrice);
             txtSellPrice = (TextView) view.findViewById(R.id.txtSellPrice);
             btnChange = (ImageButton) view.findViewById(R.id.btn_change);
             btnImport = (ImageButton) view.findViewById(R.id.btn_import);
+            txtDescription = (TextView) view.findViewById(R.id.txtDescription);
         }
     }
 
@@ -62,10 +64,11 @@ public class RecyclerGoodsItemAdapter extends RecyclerView.Adapter<RecyclerGoods
         final int pos = position;
         Goods g = goods.get(position);
         holder.txtMemberPrice.setText(String.valueOf(g.getMemberPrice()));
-        holder.txtPurchasePrice.setText(String.valueOf(g.getBuyPrice()));
+//        holder.txtPurchasePrice.setText(String.valueOf(g.getBuyPrice()));
         holder.txtSellPrice.setText(String.valueOf(g.getSellPrice()));
         holder.txtLeftAmount.setText(String.valueOf(g.getLeftAmount()));
         holder.txtName.setText(g.getName());
+        holder.txtDescription.setText(g.getDescription());
         holder.btnChange.setTag(g);
         holder.btnChange.setOnClickListener(changeAmountClickListener);
         holder.btnImport.setTag(g);

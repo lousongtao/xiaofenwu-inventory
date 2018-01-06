@@ -2,20 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="170dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtGoodsName"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/color_OrangeTheme_CategoryBackgroundArea"
+        android:background="@color/color_OrangeTheme_ChoosedGoodsBackgroundArea"
         android:ellipsize="end"
+        android:gravity="center_vertical"
         android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -34,32 +35,20 @@
                     android:id="@+id/textView4"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:text="Purchase Price" />
+                    android:text="Left Amount" />
 
                 <TextView
-                    android:id="@+id/txtPurchasePrice"
+                    android:id="@+id/txtLeftAmount"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:ellipsize="end"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:text="Sell Price" />
-
-                <TextView
-                    android:id="@+id/txtSellPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:ellipsize="end"
-                    android:textSize="24sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -79,10 +68,10 @@
                     android:id="@+id/textView5"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:text="Left Amount" />
+                    android:text="Sell Price" />
 
                 <TextView
-                    android:id="@+id/txtLeftAmount"
+                    android:id="@+id/txtSellPrice"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:ellipsize="end"
@@ -113,5 +102,11 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="12sp" />
 
 </LinearLayout>

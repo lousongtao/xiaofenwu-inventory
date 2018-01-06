@@ -53,7 +53,7 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
         btnImport = (ImageButton) searchResultCell.findViewById(R.id.btn_import);
         txtGoodsName = (TextView) searchResultCell.findViewById(R.id.txtGoodsName);
         txtLeftAmount = (TextView) searchResultCell.findViewById(R.id.txtLeftAmount);
-        txtPurchasePrice = (TextView) searchResultCell.findViewById(R.id.txtPurchasePrice);
+//        txtPurchasePrice = (TextView) searchResultCell.findViewById(R.id.txtPurchasePrice);
         txtSellPrice = (TextView) searchResultCell.findViewById(R.id.txtSellPrice);
         txtMemberPrice = (TextView) searchResultCell.findViewById(R.id.txtMemberPrice);
 
