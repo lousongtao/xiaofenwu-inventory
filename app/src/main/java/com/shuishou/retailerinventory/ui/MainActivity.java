@@ -90,10 +90,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         httpOperator = new HttpOperator(this);
 
-        httpOperator.loadData();
-
         saveNewAmountDialog = new SaveNewAmountDialog(this);
         importAmountDialog = new ImportAmountDialog(this);
+
+        startProgressDialog("wait", "Loading data...");
+        httpOperator.loadData();
     }
 
     public void initData(ArrayList<Category1> cs){
@@ -131,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void startProgressDialog(String title, String message){
         progressDlg = ProgressDialog.show(this, title, message);
+    }
+
+    public void stopProgressDialog(){
+        progressDlgHandler.sendMessage(CommonTool.buildMessage(PROGRESSDLGHANDLER_MSGWHAT_DISMISSDIALOG));
     }
 
     public HttpOperator getHttpOperator(){

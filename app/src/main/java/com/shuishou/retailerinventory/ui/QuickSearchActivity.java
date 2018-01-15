@@ -34,7 +34,7 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
     private ImageButton btnImport;
     private TextView txtGoodsName;
     private TextView txtLeftAmount;
-    private TextView txtPurchasePrice;
+//    private TextView txtPurchasePrice;
     private TextView txtSellPrice;
     private TextView txtMemberPrice;
     private AlertDialog dlg;
@@ -100,7 +100,7 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
         btnImport.setTag(findGoods);
         txtGoodsName.setText(findGoods.getName());
         txtLeftAmount.setText(String.valueOf(findGoods.getLeftAmount()));
-        txtPurchasePrice.setText(String.valueOf(findGoods.getBuyPrice()));
+//        txtPurchasePrice.setText(String.valueOf(findGoods.getBuyPrice()));
         txtSellPrice.setText(String.valueOf(findGoods.getSellPrice()));
         txtMemberPrice.setText(String.valueOf(findGoods.getMemberPrice()));
     }

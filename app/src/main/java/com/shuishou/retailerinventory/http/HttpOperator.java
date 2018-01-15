@@ -77,6 +77,9 @@ public class HttpOperator {
                 default:
             }
             CommonTool.popupWarnDialog(mainActivity, R.drawable.error, "WRONG", msg);
+            if (mainActivity != null){
+                mainActivity.stopProgressDialog();
+            }
         }
 
         @Override
@@ -109,6 +112,7 @@ public class HttpOperator {
             Log.e(logTag, "doResponseQueryGoods: get FALSE for query goods");
             MainActivity.LOG.error("doResponseQueryGoods: get FALSE for query goods");
         }
+        mainActivity.stopProgressDialog();
     }
 
     private void doResponseLogin(Response<JSONObject> response){
