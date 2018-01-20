@@ -21,7 +21,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity android:name=".ui.CameraActivity"/>
-        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard"/>
         <activity android:name=".ui.QuickSearchActivity"/>
         <activity android:name=".ui.LoginActivity">
             <intent-filter>
