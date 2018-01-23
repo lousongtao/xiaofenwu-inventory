@@ -4,16 +4,25 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtLeftAmount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Amount : "
-        android:textSize="18sp" />
+        android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/txtNewAmount"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Reset Amount : " />
+
+        <EditText
+            android:id="@+id/txtResetAmount"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </LinearLayout>
 
 </LinearLayout>

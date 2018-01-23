@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shuishou.retailerinventory.InstantValue;
@@ -23,8 +24,8 @@ import com.shuishou.retailerinventory.R;
  */
 
 class SaveNewAmountDialog {
-
-    private EditText txtNewAmount;
+    private TextView txtLeftAmount;
+    private EditText txtResetAmount;
     private MainActivity mainActivity;
 
     private AlertDialog dlg;
@@ -54,8 +55,8 @@ class SaveNewAmountDialog {
 
     private void initUI(){
         View view = LayoutInflater.from(mainActivity).inflate(R.layout.change_newamount_layout, null);
-
-        txtNewAmount = (EditText) view.findViewById(R.id.txtNewAmount);
+        txtLeftAmount = (TextView) view.findViewById(R.id.txtLeftAmount);
+        txtResetAmount = (EditText) view.findViewById(R.id.txtResetAmount);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
         builder.setTitle("Change Amount")
@@ -82,7 +83,7 @@ class SaveNewAmountDialog {
 
 
     private void doSave(){
-        final String amount = txtNewAmount.getText().toString();
+        final String amount = txtResetAmount.getText().toString();
         if (amount == null || amount.length() == 0){
             Toast.makeText(mainActivity, "Please input amount.", Toast.LENGTH_LONG).show();
             return;
@@ -106,7 +107,8 @@ class SaveNewAmountDialog {
 
     public void showDialog(Goods g){
         this.goods = g;
-        txtNewAmount.setText(InstantValue.NULLSTRING);
+        txtLeftAmount.setText("Left Amount : " + g.getLeftAmount());
+        txtResetAmount.setText(InstantValue.NULLSTRING);
         dlg.setTitle("Change Amount for " + g.getName());
         dlg.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dlg.show();

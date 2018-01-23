@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private android.support.v7.widget.RecyclerView lvGoods;
     private ImageButton btnLookfor;
     private ImageButton btnScan;
+    private GoodsInfoDialog goodsInfoDialog;
     private SaveNewAmountDialog saveNewAmountDialog;
     private ImportAmountDialog importAmountDialog;
 
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         saveNewAmountDialog = new SaveNewAmountDialog(this);
         importAmountDialog = new ImportAmountDialog(this);
+        goodsInfoDialog = new GoodsInfoDialog(this);
 
         startProgressDialog("wait", "Loading data...");
         httpOperator.loadData();
@@ -233,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                     if (goods != null){
-                        saveNewAmountDialog.showDialog(goods);
+                        goodsInfoDialog.showDialog(goods);
                     } else {
                         getToastHandler().sendMessage(CommonTool.buildMessage(MainActivity.TOASTHANDLERWHAT_ERRORMESSAGE,
                                 "Cannot find Goods by name : " + code));

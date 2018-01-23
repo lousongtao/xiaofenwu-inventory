@@ -39,8 +39,8 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
     private TextView txtMemberPrice;
     private AlertDialog dlg;
 
-    private QuickSearchActivity.ChooseGoodsListener listener = new QuickSearchActivity.ChooseGoodsListener();
-    private ArrayList<Goods> allGoods;
+//    private QuickSearchActivity.ChooseGoodsListener listener = new QuickSearchActivity.ChooseGoodsListener();
+//    private ArrayList<Goods> allGoods;
     private ArrayList<Category1> category1s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,16 +133,16 @@ public class QuickSearchActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    class ChooseGoodsListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            if (v.getTag() != null && v.getTag().getClass().getName().equals(Goods.class.getName())){
-                Goods g = (Goods)v.getTag();
-                Intent intent = new Intent();
-                intent.putExtra(INTENTDATA_GOODS, g);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        }
-    }
+//    class ChooseGoodsListener implements View.OnClickListener {
+//        @Override
+//        public void onClick(View v) {
+//            if (v.getTag() != null && v.getTag().getClass().getName().equals(Goods.class.getName())){
+//                Goods g = (Goods)v.getTag();
+//                Intent intent = new Intent();
+//                intent.putExtra(INTENTDATA_GOODS, g);
+//                setResult(RESULT_OK, intent);
+//                finish();
+//            }
+//        }
+//    }
 }
