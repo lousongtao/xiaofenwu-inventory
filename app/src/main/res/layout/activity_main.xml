@@ -26,6 +26,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btnMember"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:srcCompat="@drawable/member" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 

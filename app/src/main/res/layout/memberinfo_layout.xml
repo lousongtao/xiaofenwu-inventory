@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Name / Card / Tel"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/txtSearchCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/btnLookfor"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/lookfor" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtMemberName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_OrangeTheme_ChoosedGoodsBackgroundArea"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:textSize="24sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical|fill_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="折扣" />
+
+            <TextView
+                android:id="@+id/txtMemberDiscount"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="会员卡" />
+
+            <TextView
+                android:id="@+id/txtMemberCard"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="积分" />
+
+            <TextView
+                android:id="@+id/txtMemberScore"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="余额" />
+
+            <TextView
+                android:id="@+id/txtMemberBalance"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="加入     日期" />
+
+            <TextView
+                android:id="@+id/txtJoinDate"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="电话" />
+
+            <TextView
+                android:id="@+id/txtTelephone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
