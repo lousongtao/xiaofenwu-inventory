@@ -46,7 +46,7 @@ public class HttpOperator {
     private static final int WHAT_VALUE_QUERYMEMBER = 3;
 
     private Gson gson = new Gson();
-    private Gson gsonTime = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
+    private Gson gsonTime = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
     private OnResponseListener responseListener =  new OnResponseListener<JSONObject>() {
         @Override
