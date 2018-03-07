@@ -2,10 +2,12 @@ package com.shuishou.retailerinventory.http;
 
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
 import com.shuishou.retailerinventory.InstantValue;
 import com.shuishou.retailerinventory.bean.Category1;
 import com.shuishou.retailerinventory.bean.Goods;
 import com.shuishou.retailerinventory.bean.HttpResult;
+import com.shuishou.retailerinventory.bean.Member;
 import com.shuishou.retailerinventory.bean.UserData;
 import com.shuishou.retailerinventory.ui.LoginActivity;
 import com.shuishou.retailerinventory.ui.MainActivity;
@@ -41,8 +43,10 @@ public class HttpOperator {
 
     private static final int WHAT_VALUE_QUERYGOODS = 1;
     private static final int WHAT_VALUE_LOGIN = 2;
+    private static final int WHAT_VALUE_QUERYMEMBER = 3;
 
     private Gson gson = new Gson();
+    private Gson gsonTime = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
     private OnResponseListener responseListener =  new OnResponseListener<JSONObject>() {
         @Override
@@ -57,6 +61,9 @@ public class HttpOperator {
                     break;
                 case WHAT_VALUE_LOGIN :
                     doResponseLogin(response);
+                    break;
+                case WHAT_VALUE_QUERYMEMBER :
+                    doResponseQueryMember(response);
                     break;
                 default:
             }
@@ -73,6 +80,9 @@ public class HttpOperator {
                     break;
                 case WHAT_VALUE_LOGIN :
                     msg = "Failed to login. Please retry!";
+                    break;
+                case WHAT_VALUE_QUERYMEMBER :
+                    msg = "Failed to load MEMBER data. Please restart app!";
                     break;
                 default:
             }
@@ -107,10 +117,27 @@ public class HttpOperator {
         HttpResult<ArrayList<Category1>> result = gson.fromJson(response.get().toString(), new TypeToken<HttpResult<ArrayList<Category1>>>(){}.getType());
         if (result.success){
             ArrayList<Category1> cs = result.data;
-            mainActivity.initData(cs);
+            mainActivity.initGoods(cs);
         }else {
             Log.e(logTag, "doResponseQueryGoods: get FALSE for query goods");
             MainActivity.LOG.error("doResponseQueryGoods: get FALSE for query goods");
+        }
+        mainActivity.stopProgressDialog();
+    }
+    private void doResponseQueryMember(Response<JSONObject> response){
+        if (response.getException() != null){
+            Log.e(logTag, "doResponseQueryMember: " + response.getException().getMessage() );
+            MainActivity.LOG.error("doResponseQueryMember: " + response.getException().getMessage());
+            sendErrorMessageToToast("Http:doResponseQueryMember: " + response.getException().getMessage());
+            return;
+        }
+        HttpResult<ArrayList<Member>> result = gsonTime.fromJson(response.get().toString(), new TypeToken<HttpResult<ArrayList<Member>>>(){}.getType());
+        if (result.success){
+            ArrayList<Member> ms = result.data;
+            mainActivity.initMember(ms);
+        }else {
+            Log.e(logTag, "doResponseQueryMember: get FALSE for query goods");
+            MainActivity.LOG.error("doResponseQueryMember: get FALSE for query goods");
         }
         mainActivity.stopProgressDialog();
     }
@@ -149,15 +176,20 @@ public class HttpOperator {
     }
 
     //load goods
-    public void loadData(){
+    public void loadGoodsData(){
         mainActivity.getProgressDlgHandler().sendMessage(CommonTool.buildMessage(MainActivity.PROGRESSDLGHANDLER_MSGWHAT_STARTLOADDATA,
                 "start loading goods data ..."));
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(InstantValue.URL_TOMCAT + "/goods/querygoods");
         requestQueue.add(WHAT_VALUE_QUERYGOODS, request, responseListener);
     }
 
-    private void onFailedLoadMenu(){
-        //TODO: require restart app
+    //load goods
+    public void loadMemberData(){
+        mainActivity.getProgressDlgHandler().sendMessage(CommonTool.buildMessage(MainActivity.PROGRESSDLGHANDLER_MSGWHAT_STARTLOADDATA,
+                "start loading member data ..."));
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(InstantValue.URL_TOMCAT + "/member/queryallmember");
+//        request.add("userId", mainActivity.getLoginUser().getId());
+        requestQueue.add(WHAT_VALUE_QUERYMEMBER, request, responseListener);
     }
 
     private void sendErrorMessageToToast(String sMsg){

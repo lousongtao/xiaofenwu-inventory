@@ -21,6 +21,7 @@ import com.shuishou.retailerinventory.InstantValue;
 import com.shuishou.retailerinventory.bean.Category1;
 import com.shuishou.retailerinventory.bean.Category2;
 import com.shuishou.retailerinventory.bean.Goods;
+import com.shuishou.retailerinventory.bean.Member;
 import com.shuishou.retailerinventory.bean.UserData;
 import com.shuishou.retailerinventory.http.HttpOperator;
 import com.shuishou.retailerinventory.io.IOOperator;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String TAG_EXITSYSTEM = "exitsystem";
     private String TAG_LOOKFOR = "lookfor";
     private String TAG_SCAN = "scan";
+    private String TAG_MEMBER = "member";
     private final static int REQUESTCODE_SCAN = 1;
     private final static int REQUESTCODE_QUICKSEARCH = 2;
     public final static String INTENTEXTRA_CATEGORYLIST= "CATEGORYLIST";
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private UserData loginUser;
     private ArrayList<Category1> category1s = new ArrayList<>();
     private ArrayList<Goods> goods = new ArrayList<>();
+    private ArrayList<Member> members = new ArrayList<>();
     private HttpOperator httpOperator;
     private RecyclerGoodsItemAdapter goodsAdapter;
     private CategoryTabListView listViewCategorys;
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private android.support.v7.widget.RecyclerView lvGoods;
     private ImageButton btnLookfor;
     private ImageButton btnScan;
+    private ImageButton btnMember;
     private GoodsInfoDialog goodsInfoDialog;
     private SaveNewAmountDialog saveNewAmountDialog;
     private ImportAmountDialog importAmountDialog;
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lvGoods = (android.support.v7.widget.RecyclerView)findViewById(R.id.goods_listview);
         btnLookfor = (ImageButton)findViewById(R.id.btnLookfor);
         btnScan = (ImageButton)findViewById(R.id.btnScan);
+        btnMember = (ImageButton)findViewById(R.id.btnMember);
         TextView tvUploadErrorLog = (TextView)findViewById(R.id.drawermenu_uploaderrorlog);
         TextView tvExit = (TextView)findViewById(R.id.drawermenu_exit);
         //add dividers between RecyclerView items
@@ -80,9 +85,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvExit.setTag(TAG_EXITSYSTEM);
         btnLookfor.setTag(TAG_LOOKFOR);
         btnScan.setTag(TAG_SCAN);
+        btnMember.setTag(TAG_MEMBER);
         tvUploadErrorLog.setOnClickListener(this);
         tvExit.setOnClickListener(this);
         btnLookfor.setOnClickListener(this);
+        btnMember.setOnClickListener(this);
         btnScan.setOnClickListener(this);
 
         NoHttp.initialize(this);
@@ -96,10 +103,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         goodsInfoDialog = new GoodsInfoDialog(this);
 
         startProgressDialog("wait", "Loading data...");
-        httpOperator.loadData();
+        httpOperator.loadGoodsData();
+        httpOperator.loadMemberData();
     }
 
-    public void initData(ArrayList<Category1> cs){
+    public Member lookforMember(String keywords){
+        if (members != null){
+            for (Member m : members){
+                if (m.getName().toLowerCase().equals(keywords.toLowerCase())){
+                    return m;
+                }
+                if (m.getTelephone().equals(keywords)){
+                    return m;
+                }
+                if (m.getMemberCard().equals(keywords)){
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void initMember(ArrayList<Member> members){
+        this.members = members;
+    }
+
+    public void initGoods(ArrayList<Category1> cs){
         this.category1s = cs;
 
         CategoryTabAdapter categoryTabAdapter = new CategoryTabAdapter(MainActivity.this, R.layout.categorytab_listitem_layout, category1s);
@@ -210,6 +239,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (TAG_SCAN.equals(v.getTag())){
             Intent intent = new Intent(MainActivity.this, CameraActivity.class);
             startActivityForResult(intent, REQUESTCODE_SCAN);
+        } else if (TAG_MEMBER.equals(v.getTag())){
+            MemberInfoDialog dlg = new MemberInfoDialog(this);
+            dlg.showDialog();
         }
     }
 
